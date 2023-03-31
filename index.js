@@ -26,7 +26,26 @@ cities.forEach((city) => {
 
 form.addEventListener("submit", (e) => {
   if (search.value.length == 0) {
-    alert("Please type in a city name");
+    $.notify("Please type in a city name", {
+      style: "bootstrap",
+      className: "warning",
+      autoHideDelay: 5000,
+      showAnimation: "slideDown",
+      hideAnimation: "slideUp",
+      position: "top right",
+      arrowShow: false,
+      arrowSize: 5,
+      elementPosition: "bottom center",
+      globalPosition: "bottom center",
+      allow_dismiss: true,
+      delay: 1000,
+      mouse_over: "pause",
+      icon: "glyphicon glyphicon-warning-sign",
+      title: "Увага!",
+      background: "#FFC107",
+      color: "#000",
+      opacity: 1,
+    });
   } else {
     cityInput = search.value;
     fetchWeatherData();
@@ -135,6 +154,10 @@ function fetchWeatherData() {
           btn.style.background = "#1b1b1b";
         }
       }
+      app.style.opacity = "1";
+    })
+    .catch(() => {
+      $.notify("City not found, please try again", "warning");
       app.style.opacity = "1";
     });
 }
