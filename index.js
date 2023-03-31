@@ -11,6 +11,7 @@ const app = document.querySelector(".weather-app"),
   form = document.getElementById("locationInput"),
   search = document.querySelector(".search"),
   btn = document.querySelector(".submit"),
+  brand = document.querySelector(".brand"),
   cities = document.querySelectorAll(".city");
 
 let cityInput = "London";
@@ -54,6 +55,7 @@ function fetchWeatherData() {
   )
     .then((response) => response.json())
     .then((data) => {
+      brand.innerHTML = `The weather in ${data.location.region}`;
       temp.innerHTML = data.current.temp_c + "&#176;";
       conditionOutput.innerHTML = data.current.condition.text;
       const date = data.location.localtime;
