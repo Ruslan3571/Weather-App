@@ -8,7 +8,8 @@ const app = document.querySelector(".weather-app"),
   cloudOutput = document.querySelector(".cloud"),
   humidityOutput = document.querySelector(".humidity"),
   windOutput = document.querySelector(".wind"),
-  form = document.querySelector("#locationInput"),
+  form = document.getElementById("locationInput"),
+  search = document.querySelector(".search"),
   btn = document.querySelector(".submit"),
   cities = document.querySelectorAll(".city");
 
@@ -53,7 +54,6 @@ function fetchWeatherData() {
   )
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       temp.innerHTML = data.current.temp_c + "&#176;";
       conditionOutput.innerHTML = data.current.condition.text;
       const date = data.location.localtime;
@@ -99,6 +99,9 @@ function fetchWeatherData() {
       ) {
         app.style.backgroundImage = `url(./images/${timeOfDay}/cloudy.jpg)`;
         btn.style.background = "#fa6d1b";
+        if (timeOfDay == "night") {
+          btn.style.background = "#181e27";
+        }
       } else if (
         code == 1063 ||
         code == 1069 ||
@@ -120,9 +123,9 @@ function fetchWeatherData() {
       ) {
         app.style.backgroundImage = `url(./images/${timeOfDay}/rainy.jpg)`;
         btn.style.background = "#647d75";
-      }
-      if (timeOfDay == "night") {
-        btn.style.background = "#325c80";
+        if (timeOfDay == "night") {
+          btn.style.background = "#325c80";
+        }
       } else {
         app.style.backgroundImage = `url(./images/${timeOfDay}/snowy.jpg)`;
         btn.style.background = "#4d72aa";
@@ -130,11 +133,6 @@ function fetchWeatherData() {
           btn.style.background = "#1b1b1b";
         }
       }
-      app.style.opacity = "1";
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("City not found, please try again");
       app.style.opacity = "1";
     });
 }
